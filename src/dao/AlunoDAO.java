@@ -27,7 +27,37 @@ public class AlunoDAO {
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			System.out.println("Problemas no cadastro do aluno, linha de erro: " + e.getMessage());
+		}
+	}
+
+	public void atualizarAluno(Aluno aluno) {
+		String sql = "UPDATE aluno SET nome = ?, nome_mae = ?, nome_pai = ?, dt_nasc = ?, dt_cadastro = ? "+
+				"WHERE id = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, aluno.getNome());
+			stmt.setString(2, aluno.getNomeMae());
+			stmt.setString(3, aluno.getNomePai());
+			stmt.setString(4, aluno.getDataNascimento());
+			stmt.setString(5, aluno.getDataCadastro());
+			stmt.setInt(6, aluno.getId());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println("Problemas ao atualizar aluno, linha de erro: " + e.getMessage());
+		}
+	}
+
+	public void deletarAluno(int id) {
+		String sql = "DELETE FROM aluno WHERE id = ?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println("Problemas ao deletar aluno, linha de erro: " + e.getMessage());
 		}
 	}
 

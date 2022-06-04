@@ -42,6 +42,15 @@ public class Main {
 				break;
 			case "4":
 				limpaTela();
+				atualizarAluno();
+				pressioneQualquerTecla();
+			case "5":
+				limpaTela();
+				deletarAluno();
+				pressioneQualquerTecla();
+				break;
+			case "6":
+				limpaTela();
 				System.out.println("Tchau... :)");
 				pressioneQualquerTecla();
 				continuar = false;
@@ -51,7 +60,7 @@ public class Main {
 				System.out.println("Por favor, selecione uma opção válida.");
 				pressioneQualquerTecla();
 				break;
-			}
+		}
 			
 			limpaTela();
 		}
@@ -64,7 +73,9 @@ public class Main {
 		System.out.println("1 - Cadastrar aluno");
 		System.out.println("2 - Listar alunos");
 		System.out.println("3 - Buscar aluno por id");
-		System.out.println("4 - Sair");
+		System.out.println("4 - Atualizar aluno por id");
+		System.out.println("5 - Deletar aluno por id");
+		System.out.println("6 - Sair");
 	}
 
 	private static void adicionarAluno() {
@@ -86,8 +97,42 @@ public class Main {
 		resposta = entrada.nextLine();
 		aluno.setDataNascimento(resposta);
 
-		alunoService.validaAluno(aluno);
+		alunoService.adicionarAlunoValidacao(aluno);
 	}
+
+	private static void atualizarAluno() {
+		Aluno aluno = new Aluno();
+
+		System.out.println("Informe o id do aluno que deseja atualizar:");
+		int respostaId = Integer.parseInt(entrada.nextLine());
+		aluno.setId(respostaId);
+
+		System.out.println("Informe o novo nome do aluno:");
+		String resposta = entrada.nextLine();
+		aluno.setNome(resposta);
+
+		System.out.println("Informe o novo nome da Mae do Aluno:");
+		resposta = entrada.nextLine();
+		aluno.setNomeMae(resposta);
+
+		System.out.println("Informe o novo nome do Pai do Aluno:");
+		resposta = entrada.nextLine();
+		aluno.setNomePai(resposta);
+
+		System.out.println("Informe a nova data de nascimento do aluno (Ex.: 22/02/2000):");
+		resposta = entrada.nextLine();
+		aluno.setDataNascimento(resposta);
+
+		alunoService.atualizarAlunoValidacao(aluno);
+	}
+
+	private static void deletarAluno() {
+		System.out.println("Informe o id do aluno que deseja deletar:");
+		int respostaId = Integer.parseInt(entrada.nextLine());
+
+		alunoService.deletarAlunoValidacao(respostaId);
+	}
+
 
 	private static void listarAlunos() {
 		List<Aluno> listaAlunos = alunoService.listaAlunos();
